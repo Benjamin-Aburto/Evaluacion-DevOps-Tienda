@@ -9,6 +9,11 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import { CartProvider } from './context/CartContext';
 import AdminPanel from './pages/AdminPanel';
+import Categorias from './pages/Categorias'; // Nueva importación
+import Ofertas from './pages/Ofertas';     // Nueva importación
+import Nosotros from './pages/Nosotros';   // Nueva importación
+import Contacto from './pages/Contacto';   // Nueva importación
+import MisOrdenes from './pages/MisOrdenes'; // Nueva importación (asegúrate de que este archivo exista)
 
 // Componente auxiliar para decidir si mostramos el Navbar
 function Layout() {
@@ -28,6 +33,13 @@ function Layout() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
+          
+          {/* Nuevas rutas públicas */}
+          <Route path="/categorias" element={<Categorias />} />
+          <Route path="/ofertas" element={<Ofertas />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/mis-ordenes" element={<MisOrdenes />} /> {/* Ruta para "Mis Pedidos" */}
 
           {/* RUTA ADMIN SIMPLE */}
           <Route path="/admin/*" element={<AdminPanel />} />

@@ -1,16 +1,12 @@
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const express = require('express');
 const cors = require('cors');
-
-// --- IMPORTACIONES ---
+const path = require('path');
 const sequelize = require('./config/database');
 const Producto = require('./models/Producto');
 const Usuario = require('./models/Usuario');
-const Categoria = require('./models/Categoria'); // Nuevo
-const Orden = require('./models/Orden');         // Nuevo
+const Categoria = require('./models/Categoria');
+const Orden = require('./models/Orden');
 
-// --- RELACIONES (ASOCIACIONES) ---
-// Esto crea las "Foreign Keys" automáticamente
 Categoria.hasMany(Producto);
 Producto.belongsTo(Categoria);
 
@@ -23,7 +19,7 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('API Tienda Gamer Full Stack 🚀'));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.post('/api/productos', async (req, res) => {
     try {
@@ -33,7 +29,7 @@ app.post('/api/productos', async (req, res) => {
 });
 
 app.get('/api/productos', async (req, res) => {
-    const lista = await Producto.findAll({ include: Categoria }); // Trae la categoría también
+    const lista = await Producto.findAll({ include: Categoria });
     res.json(lista);
 });
 
@@ -87,21 +83,23 @@ app.post('/api/registro', async (req, res) => {
         
         const user = await Usuario.create({ nombre, email, password });
         res.status(201).json({ mensaje: "Usuario creado", usuario: user });
-    } catch (e) { res.status(500).json({ error: "Error registro" }); }
+    } catch (e) { 
+        console.error(e);
+        res.status(500).json({ error: "Error registro" }); 
+    }
 });
 
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await Usuario.findOne({ where: { email } });
+    
     if (!user || user.password !== password) return res.status(401).json({ error: "Credenciales inválidas" });
     
     res.json({ mensaje: "Login OK", usuario: { id: user.id, nombre: user.nombre, rol: user.rol } });
 });
 
-// Crear una Orden (Compra)
 app.post('/api/ordenes', async (req, res) => {
     try {
-        // Necesitamos saber qué usuario compró (UserId) y el total
         const { total, UsuarioId } = req.body; 
         const nuevaOrden = await Orden.create({ total, UsuarioId });
         res.status(201).json({ mensaje: "Orden creada", orden: nuevaOrden });
@@ -109,14 +107,17 @@ app.post('/api/ordenes', async (req, res) => {
 });
 
 app.get('/api/ordenes', async (req, res) => {
-    // Ver todas las órdenes con los datos del usuario dueño
     const ordenes = await Orden.findAll({ include: Usuario });
     res.json(ordenes);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 sequelize.sync({ alter: true }).then(() => {
-    console.log("✅ TODAS LAS TABLAS SINCRONIZADAS (Productos, Usuarios, Categorías, Órdenes)");
+    console.log("Tablas sincronizadas");
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
-}).catch(error => console.error("❌ Error BD:", error));
+}).catch(error => console.error("Error BD:", error));
