@@ -109,7 +109,6 @@ app.post('/api/ordenes', async (req, res) => {
 });
 
 app.get('/api/ordenes', async (req, res) => {
-
     const ordenes = await Orden.findAll({ include: Usuario });
     res.json(ordenes);
 });
