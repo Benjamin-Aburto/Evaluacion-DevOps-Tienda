@@ -18,7 +18,6 @@ import MisOrdenes from './pages/MisOrdenes'; // Nueva importación (asegúrate d
 // Componente auxiliar para decidir si mostramos el Navbar
 function Layout() {
   const location = useLocation();
-  // Si la ruta empieza con "/admin", NO mostramos el Navbar
   const esAdminPanel = location.pathname.startsWith('/admin');
 
   return (
@@ -26,7 +25,6 @@ function Layout() {
       {!esAdminPanel && <Navbar />}
       <div className={!esAdminPanel ? "container container-main" : ""} style={!esAdminPanel ? { paddingTop: '80px' } : {}}>
         <Routes>
-          {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
@@ -34,17 +32,15 @@ function Layout() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           
-          {/* Nuevas rutas públicas */}
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/ofertas" element={<Ofertas />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/mis-ordenes" element={<MisOrdenes />} /> {/* Ruta para "Mis Pedidos" */}
+          <Route path="/mis-ordenes" element={<MisOrdenes />} /> 
 
           {/* RUTA ADMIN SIMPLE */}
           <Route path="/admin/*" element={<AdminPanel />} />
           
-          {/* Cualquier ruta rara va al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
