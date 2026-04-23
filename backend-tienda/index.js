@@ -109,7 +109,7 @@ app.post('/api/ordenes', async (req, res) => {
 });
 
 app.get('/api/ordenes', async (req, res) => {
-    // Ver todas las órdenes con los datos del usuario dueño
+
     const ordenes = await Orden.findAll({ include: Usuario });
     res.json(ordenes);
 });
@@ -119,4 +119,5 @@ sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
+    //error o algo no se
 }).catch(error => console.error("❌ Error BD:", error));
