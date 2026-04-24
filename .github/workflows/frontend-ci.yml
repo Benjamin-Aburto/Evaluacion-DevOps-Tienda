@@ -1,0 +1,27 @@
+name: Node.js CI - Tienda Gamer
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install
+      # Si tus archivos están en una subcarpeta, usa: working-directory: ./nombre-carpeta
+
+    - name: Build project
+      run: npm run build --if-present
