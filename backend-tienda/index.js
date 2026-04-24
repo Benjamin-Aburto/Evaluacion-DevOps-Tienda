@@ -120,4 +120,5 @@ sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
-}).catch(error => console.error("Error BD:", error));
+    //error o algo no se
+}).catch(error => console.error("❌ Error BD:", error));
