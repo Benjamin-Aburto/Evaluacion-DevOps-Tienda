@@ -17,14 +17,14 @@ Trato de usar prefijos cortos para que el historial sea claro:
     docs: para cambios en este archivo README.
 
 
-Configuré una herramienta de automatización (GitHub Actions) que se encuentra en la carpeta '.github/workflows/'[cite: 21, 29]. Esta acción se activa automáticamente cada vez que:
+Configuré una herramienta de automatización (GitHub Actions) que se encuentra en la carpeta '.github/workflows/'. Esta acción se activa automáticamente cada vez que:
 Subo cambios a la rama 'develop'.
 Se abre un Pull Request hacia la rama 'main'.
-Esto ayuda a verificar que el proyecto compile (haga el 'build') correctamente antes de unir los cambios[cite: 30].
+Esto ayuda a verificar que el proyecto compile (haga el 'build') correctamente antes de unir los cambios.
 
 Declaración de Uso de IA
-Usé asistencia de IA para ayudarme a entender los comandos de Git y para armar la estructura del archivo YAML del pipeline[cite: 36].
-Me sirvió de guía para resolver errores de permisos y para organizar los puntos obligatorios de este README[cite: 37].
+Usé asistencia de IA para ayudarme a entender los comandos de Git y para armar la estructura del archivo YAML del pipeline.
+Me sirvió de guía para resolver errores de permisos y para organizar los puntos obligatorios de este README.
 
 ---
 Conclusion personal:
